@@ -1,4 +1,10 @@
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -17,6 +23,39 @@ const staggerContainer = {
 };
 
 export const Hero = () => {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+
+  const smoothX = useSpring(pointerX, {
+    stiffness: 140,
+    damping: 20,
+    mass: 0.5,
+  });
+  const smoothY = useSpring(pointerY, {
+    stiffness: 140,
+    damping: 20,
+    mass: 0.5,
+  });
+
+  const backgroundTransform = useMotionTemplate`translate3d(${smoothX}px, ${smoothY}px, 0) scale(1.02)`;
+  const contentRotateX = useTransform(smoothY, [-8, 8], [1.4, -1.4]);
+  const contentRotateY = useTransform(smoothX, [-8, 8], [-1.4, 1.4]);
+  const contentTransform = useMotionTemplate`rotateX(${contentRotateX}deg) rotateY(${contentRotateY}deg)`;
+
+  const handlePointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    pointerX.set(offsetX * -12);
+    pointerY.set(offsetY * -10);
+  };
+
+  const handlePointerLeave = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
   return (
     <motion.section
       id="home"
@@ -24,8 +63,27 @@ export const Hero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.2 }}
+      onMouseMove={handlePointerMove}
+      onMouseLeave={handlePointerLeave}
     >
-      <div className="hero-container">
+      <motion.div
+        className="hero-background"
+        aria-hidden="true"
+        style={{ transform: backgroundTransform }}
+      />
+      <motion.div
+        className="hero-stars"
+        aria-hidden="true"
+        style={{ transform: backgroundTransform }}
+      >
+        <span className="shooting-star shooting-star-1" />
+        <span className="shooting-star shooting-star-2" />
+        <span className="shooting-star shooting-star-3" />
+        <span className="shooting-star shooting-star-4" />
+        <span className="shooting-star shooting-star-5" />
+      </motion.div>
+
+      <motion.div className="hero-container" style={{ transform: contentTransform }}>
         <motion.div
           className="hero-content"
           variants={staggerContainer}
@@ -149,7 +207,7 @@ export const Hero = () => {
             </div>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 };

@@ -128,19 +128,139 @@ body {
 
 .hero {
   min-height: 100vh;
-  background-image: url('../src/assets/main3.jpg');
-  background-size: cover; /* This makes the image cover the entire hero section */
-  background-position: center; /* This centers the image within the section */
-  background-repeat: no-repeat; /* Prevents the image from tiling if it's small */
-  /* You can add a fallback background color in case the image fails to load */
-  background-color: #0f172a; /* Or any dark color that complements your image */
-
-
+  background-color: #020617;
   display: flex;
   align-items: center;
   padding: 0 5%;
   position: relative;
   overflow: hidden;
+  perspective: 1200px;
+}
+
+.hero-background {
+  position: absolute;
+  inset: -1%;
+  background-image:
+    linear-gradient(rgba(2, 6, 23, 0.28), rgba(2, 6, 23, 0.68)),
+    url('/projects/galaxy.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform-origin: center;
+  will-change: transform;
+  z-index: 0;
+}
+
+.hero-stars {
+  position: absolute;
+  inset: -1%;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.45) 0 0.8px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.35) 0 0.7px, transparent 1.4px);
+  background-size: 150px 150px, 210px 210px, 280px 280px;
+  background-position: 24px 18px, 98px 76px, 42px 120px;
+  background-repeat: repeat;
+  opacity: 0.34;
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation: star-twinkle-soft 7.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-stars::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.7) 0 1.3px, transparent 2.1px),
+    radial-gradient(circle, rgba(186, 230, 253, 0.55) 0 1.2px, transparent 2px);
+  background-size: 340px 340px, 460px 460px;
+  background-position: 120px 60px, 260px 140px;
+  background-repeat: repeat;
+  opacity: 0.26;
+  animation: star-twinkle-bright 9.2s ease-in-out infinite alternate;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 170px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 35%,
+    rgba(255, 255, 255, 0.95) 78%,
+    rgba(186, 230, 253, 1) 100%
+  );
+  box-shadow: 0 0 12px rgba(186, 230, 253, 0.6);
+  opacity: 0;
+  transform: translate3d(-30vw, -24vh, 0) rotate(31deg) scaleX(0.86);
+  will-change: transform, opacity;
+}
+
+.shooting-star::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(224, 242, 254, 0.95);
+  box-shadow: 0 0 10px rgba(186, 230, 253, 0.9);
+}
+
+.shooting-star-1 {
+  top: 24%;
+  left: 14%;
+  animation: shooting-star-trail 12s linear infinite;
+}
+
+.shooting-star-2 {
+  top: 18%;
+  left: 30%;
+  width: 130px;
+  animation: shooting-star-trail 14.5s linear infinite;
+  animation-delay: 2.8s;
+}
+
+.shooting-star-3 {
+  top: 34%;
+  left: 46%;
+  width: 150px;
+  animation: shooting-star-trail 16s linear infinite;
+  animation-delay: 6.2s;
+}
+
+.shooting-star-4 {
+  top: 14%;
+  left: 58%;
+  width: 120px;
+  animation: shooting-star-trail 15.2s linear infinite;
+  animation-delay: 9.5s;
+}
+
+.shooting-star-5 {
+  top: 42%;
+  left: 26%;
+  width: 140px;
+  animation: shooting-star-trail 17s linear infinite;
+  animation-delay: 12.4s;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.14), transparent 30%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-container {
@@ -152,6 +272,58 @@ body {
   margin: 0 auto;
   width: 100%;
   padding-top: 100px;
+  position: relative;
+  z-index: 3;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+@keyframes star-twinkle-soft {
+  0% {
+    opacity: 0.28;
+    filter: brightness(0.92);
+  }
+  50% {
+    opacity: 0.4;
+    filter: brightness(1.06);
+  }
+  100% {
+    opacity: 0.33;
+    filter: brightness(0.98);
+  }
+}
+
+@keyframes star-twinkle-bright {
+  0% {
+    opacity: 0.2;
+    filter: brightness(0.94);
+  }
+  50% {
+    opacity: 0.34;
+    filter: brightness(1.14);
+  }
+  100% {
+    opacity: 0.24;
+    filter: brightness(1);
+  }
+}
+
+@keyframes shooting-star-trail {
+  0% {
+    opacity: 0;
+    transform: translate3d(-14vw, -10vh, 0) rotate(31deg) scaleX(0.82);
+  }
+  12% {
+    opacity: 0.88;
+  }
+  68% {
+    opacity: 0.58;
+    transform: translate3d(34vw, 24vh, 0) rotate(31deg) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(56vw, 40vh, 0) rotate(31deg) scaleX(1.06);
+  }
 }
 
 .hero-content {
@@ -160,6 +332,7 @@ body {
   max-width: 600px;
   position: relative;
   z-index: 2;
+  transform: translateZ(36px);
 }
 
 .hero-badge {
@@ -318,6 +491,7 @@ body {
 
 .hero-image-container {
   flex: 1;
+  transform: translateZ(72px);
   position: relative;
   max-width: 600px;
 }
@@ -729,4 +903,99 @@ body {
   background: var(--background);
   color: var(--text-color);
   border-top: 1px solid var(--card-border);
+}
+
+.touchless-panel {
+  position: fixed;
+  right: 1rem;
+  top: 5.8rem;
+  width: min(320px, calc(100vw - 2rem));
+  background: var(--section-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.8rem;
+  padding: 0.9rem;
+  z-index: 1200;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.touchless-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.touchless-switch {
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.touchless-switch input {
+  accent-color: var(--secondary-color);
+}
+
+.touchless-status {
+  color: var(--light-text);
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+.touchless-sensitivity {
+  font-size: 0.85rem;
+}
+
+.touchless-panel input[type="range"] {
+  width: 100%;
+  margin: 0.35rem 0 0.65rem;
+}
+
+.touchless-preview {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid var(--card-border);
+  background: #000;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.touchless-preview.mirrored {
+  transform: scaleX(-1);
+}
+
+.touchless-help {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--light-text);
+}
+
+.touchless-cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 1300;
+  opacity: 0;
+  transform: translate(-9999px, -9999px);
+  transition: opacity 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.touchless-cursor.pinching {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.35);
+}
+
+@media (max-width: 640px) {
+  .touchless-panel {
+    right: 0.6rem;
+    left: 0.6rem;
+    top: 5.2rem;
+    width: auto;
+  }
 }

@@ -25,8 +25,24 @@ export const Projects = () => {
       description:
         "A conversational AI assistant mobile app designed to keep you safe, focused, and engaged on the road. It monitors your behavior, provides real-time feedback while driving, and engages conversations about your route.",
       image: "/projects/CoDriver.png",
-      tech: ["React Native", "Node.js", "Express.js", "MongoDB", "Claude Sonnet 3.7"],
+      tech: ["React Native", "Node.js", "Express.js", "MongoDB", "Claude", "Google Maps API", "OpenWeather API", "Spotify API", "ElevenLabs"],
       url: "https://github.com/acm-projects/CoDriver",
+    },
+    {
+      title: "Aegis",
+      description:
+        "Aegis is a full-stack disaster response dashboard that aggregates real-time weather, outage, and pricing data to predict supply shortages and power failures during natural disasters.",
+      image: "/projects/aegis.png",
+      tech: ["React", "Python", "FastAPI", "Gemini", "NLP", "Twilio", "NASA API (Live)", "ODIN Dataset (Live)", "NOAA Dataset (Live)"],
+      url: "https://devpost.com/software/aegis-d60u4e",
+    },
+    {
+      title: "SubSlash",
+      description:
+        "AI subscription manager that helps you track subscriptions and get suggestions on them. It uses a combination of LLMs and web scraping to analyze your subscriptions and provide insights on how to optimize them.",
+      image: "/projects/SubSlash.png",
+      tech: ["React Native", "Python", "Express.js", "Node.js", "Supabase", "Claude", "BeautifulSoap"],
+      url: "https://github.com/Insight14/SubSlash",
     },
     {
       title: "MedVisit",
@@ -35,14 +51,6 @@ export const Projects = () => {
       imageStyle: "url('/projects/medvisit-diagram.png'), url('/projects/ai-saas.png')",
       tech: ["Python", "React.js", "Llama 3.1", "TwelveLabs", "FastAPI"],
       url: "https://devpost.com/software/medvisit",
-    },
-    {
-      title: "SubSlash",
-      description:
-        "AI subscription manager that helps you track subscriptions and get suggestions on them. It uses a combination of LLMs and web scraping to analyze your subscriptions and provide insights on how to optimize them.",
-      image: "/projects/SubSlash.png",
-      tech: ["React Native", "Python", "Express.js", "Node.js", "Supabase", "Claude Sonnet 3.7", "BeautifulSoap"],
-      url: "https://github.com/Insight14/SubSlash",
     },
     {
       title: "Ask-and-Forget",
