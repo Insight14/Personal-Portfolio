@@ -5,8 +5,19 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import angularLogo from "../assets/angular.png";
+import arduinoLogo from "../assets/arduino.png";
+import awsLogo from "../assets/aws.png";
+import cppLogo from "../assets/c++.svg";
+import fastapiLogo from "../assets/fastapi.png";
+import javaLogo from "../assets/Java-Logo.svg.png";
+import linuxLogo from "../assets/linux.webp";
+import nodeLogo from "../assets/node.png";
+import pythonLogo from "../assets/python.svg.png";
+import reactLogo from "../assets/react.png";
+import swiftLogo from "../assets/swift.png";
+import vueLogo from "../assets/vue.png";
+import azureLogo from "../assets/Microsoft_Azure_Logo.svg.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -21,6 +32,43 @@ const staggerContainer = {
     },
   },
 };
+
+const generateRandomDrift = () => {
+  const angle = Math.random() * Math.PI * 2;
+  const magnitude = 55 + Math.random() * 18;
+  return {
+    driftX: Math.cos(angle) * magnitude,
+    driftY: Math.sin(angle) * magnitude,
+  };
+};
+
+const generateRandomSize = (baseSize) => {
+  const basePx = parseInt(baseSize);
+  const randomSize = basePx + Math.random() * (basePx * 0.35);
+  return Math.round(randomSize) + "px";
+};
+
+const techLogosData = [
+  { name: "React", src: reactLogo, x: "8%", y: "12%", size: "86px", z: 3 },
+  { name: "Node.js", src: nodeLogo, x: "28%", y: "8%", size: "82px", z: 5 },
+  { name: "Python", src: pythonLogo, x: "54%", y: "10%", size: "84px", z: 4 },
+  { name: "AWS", src: awsLogo, x: "78%", y: "15%", size: "84px", z: 4 },
+  { name: "Azure", src: azureLogo, x: "92%", y: "38%", size: "90px", z: 6 },
+  { name: "FastAPI", src: fastapiLogo, x: "18%", y: "35%", size: "80px", z: 5 },
+  { name: "Angular", src: angularLogo, x: "44%", y: "48%", size: "84px", z: 4 },
+  { name: "Vue", src: vueLogo, x: "68%", y: "42%", size: "86px", z: 5 },
+  { name: "Arduino", src: arduinoLogo, x: "12%", y: "65%", size: "84px", z: 6 },
+  { name: "Linux", src: linuxLogo, x: "38%", y: "72%", size: "80px", z: 4 },
+  { name: "C++", src: cppLogo, x: "62%", y: "68%", size: "80px", z: 3 },
+  { name: "Java", src: javaLogo, x: "82%", y: "75%", size: "82px", z: 5 },
+  { name: "Swift", src: swiftLogo, x: "28%", y: "88%", size: "80px", z: 4 },
+];
+
+const techLogos = techLogosData.map((logo) => ({
+  ...logo,
+  size: generateRandomSize(logo.size),
+  ...generateRandomDrift(),
+}));
 
 export const Hero = () => {
   const pointerX = useMotionValue(0);
@@ -112,7 +160,7 @@ export const Hero = () => {
 
           <motion.div className="cta-buttons" variants={staggerContainer}>
             <motion.a
-              href="/projects/Sourish_Reddy_Update_Resume.pdf"
+              href="/projects/SourishR_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="cta-primary"
@@ -150,62 +198,37 @@ export const Hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <div className="code-display">
-            <SyntaxHighlighter
-              language="typescript"
-              customStyle={{
-                margin: 0,
-                padding: "2rem",
-                height: "100%",
-                borderRadius: "20px",
-                background: "rgba(0, 0, 0, 0.8)",
-                backdropFilter: "blur(10px)",
-                marginBottom: 50,
-              }}
-              style={vscDarkPlus}
-            >
-              
-  {`const aboutMe: DeveloperProfile = 
-  {
-      username: "Insight14",
-      origin: "Hyderabad, TL, India",
-      role: "Full Time Student"
-            "Part Time Gamer"
-            "Overtime Programmer"
-            "Certified grass toucher",
-      skills: {
-        coding languages: ["Java", "C/C++", "Python", "Swift", "HTML/CSS", "Javascript/Typescript"],
-        frameworks: ["React", "Uvicorn", "Node.js", "Express.js", "FastAPI", "Vue", "TailwindCSS"]
-        languages: ["English", "Telugu", "Hindi", "Spanish", "Japanese"]
-      },
-      traits: [
-        "strategic slacker",
-        "code whisperer",
-        "brackets-balanced believer",
-        "refactor evangelist",
-      ],
-      missionStatement:
-        "Making the world a more compile-able place.",
-      availability: "#opentowork"
-                    "#opentoconnect",
-    };`
-    }
-            </SyntaxHighlighter>
+          <div className="tech-cloud" aria-label="Technology logos">
+            {techLogos.map((tech, index) => (
+              <motion.div
+                key={tech.name}
+                className="tech-cloud-item"
+                style={{
+                  "--tech-x": tech.x,
+                  "--tech-y": tech.y,
+                  "--tech-size": tech.size,
+                  "--tech-z": tech.z,
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  x: [0, tech.driftX],
+                  y: [0, tech.driftY],
+                  rotate: [-2, 2],
+                  scale: [0.95, 1.05, 0.95],
+                  opacity: [0.05, 0.88, 0.05],
+                }}
+                transition={{
+                  duration: 7.4 + (index % 5) * 1.2,
+                  delay: index * 0.18,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                <img src={tech.src} alt={tech.name} loading="lazy" />
+              </motion.div>
+            ))}
           </div>
-
-          <motion.div
-            className="floating-card"
-            animate={{ y: [0, -10, 0], rotate: [0, 2, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="card-content">
-              <span className="card-icon"> 💻 </span>
-              <span className="card-text">
-                {" "}
-                Currently exploring Kubernetes!
-              </span>
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
     </motion.section>

@@ -461,43 +461,62 @@ body {
   color: var(--accent-color);
 }
 
-.floating-card {
-  position: absolute;
-  bottom: 2rem;
-  right: -2rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 1rem 1.5rem;
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.card-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.card-text {
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.card-icon {
-  font-size: 1.5rem;
-}
-
 .hero-image-container {
   flex: 1;
   transform: translateZ(72px);
   position: relative;
-  max-width: 600px;
+  max-width: 680px;
 }
 
-.code-display {
+.tech-cloud {
   width: 100%;
+  height: clamp(390px, 48vw, 560px);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.28), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(14, 165, 233, 0.22), transparent 44%),
+    linear-gradient(150deg, rgba(3, 7, 18, 0.8), rgba(2, 6, 23, 0.62));
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  box-shadow: 0 18px 46px rgba(2, 6, 23, 0.5);
+}
+
+.tech-cloud::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.tech-cloud-item {
+  position: absolute;
+  left: var(--tech-x);
+  top: var(--tech-y);
+  z-index: var(--tech-z, 1);
+  width: var(--tech-size);
+  height: var(--tech-size);
+  transform: translate(-50%, -50%);
+  border-radius: 18px;
+  padding: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.36);
+}
+
+.tech-cloud-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.4));
 }
 
 /* Hero Media Queries */
